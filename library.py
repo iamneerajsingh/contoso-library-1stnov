@@ -3,6 +3,9 @@ from dataclasses import dataclass
 from datetime import date, timedelta
  
 LOAN_PERIOD_DAYS = 14
+GRACE_PERIOD_DAYS = 2
+FINE_PER_LATE_DAY_RUPEES = 10
+MAX_FINE_RUPEES = 500
  
  
 @dataclass
@@ -20,6 +23,7 @@ class Loan:
     borrowed_on: date
     due_on: date
     returned_on: date | None = None
+    fine: int = 0
  
  
 class Library:
@@ -50,6 +54,12 @@ class Library:
         for loan in self.loans:
             if loan.isbn == isbn and loan.returned_on is None:
                 loan.returned_on = today
+                late_days = (today - loan.due_on).days
+                chargeable_days = max(0, late_days - GRACE_PERIOD_DAYS)
+                loan.fine = min(
+                    chargeable_days * FINE_PER_LATE_DAY_RUPEES,
+                    MAX_FINE_RUPEES,
+                )
                 self.books[isbn].available = True
                 return loan
         raise ValueError(f"Book {isbn} is not on loan")
