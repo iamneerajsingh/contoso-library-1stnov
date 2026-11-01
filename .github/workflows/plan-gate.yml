@@ -1,0 +1,32 @@
+File: .github/workflows/plan-gate.yml
+name: Plan gate
+on:
+  pull_request:
+ 
+permissions:
+  contents: read
+ 
+jobs:
+  plan-approved:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require an approved plan for code changes
+        env:
+          BASE: ${{ github.base_ref }}
+        run: |
+          CHANGED=$(git diff --name-only "origin/$BASE"...HEAD)
+          echo "Changed files:"; echo "$CHANGED"
+          if ! echo "$CHANGED" | grep -qv '^docs/plans/'; then
+            echo "Plan-only pull request: gate passes."
+            exit 0
+          fi
+          if grep -qs "Status: APPROVED" docs/plans/*.md; then
+            echo "An approved plan exists."
+          else
+            echo "::error::No approved plan found in docs/plans. Run the planner agent and get human approval first."
+            exit 1
+          fi
+ 

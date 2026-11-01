@@ -1,0 +1,40 @@
+name: Agent task
+description: A task that may be handed to a Copilot agent
+title: "[Agent task]: "
+labels: ["agent-task"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal (input)
+      description: What should change, in one or two sentences?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Success criteria
+      description: Testable checks. The task is done only when all are true.
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Expected outputs
+      description: Files, tests, docs or artifacts the agent must produce.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and out of scope
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk level
+      options: ["Low", "Medium", "High"]
+    validations:
+      required: true
+ 
