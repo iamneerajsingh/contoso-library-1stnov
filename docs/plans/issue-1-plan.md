@@ -15,12 +15,13 @@ Calculate overdue fines when a book is returned: 10 integer rupees per late day 
 - A return on the due date has a fine of zero.
 - A return two days after the due date has a fine of zero.
 - A return three days after the due date has a fine of 10 rupees.
-- A sufficiently late return is capped at 500 rupees.
+- A sufficiently late return has a fine of exactly 500 integer rupees, verifying the cap.
 - Existing return behavior still marks the book available and returns the updated loan.
 
 ## Risks and rollback
 - Off-by-one errors around the due date and grace-period boundary could overcharge or undercharge members; test both boundaries with fixed dates.
 - If adding a field to `Loan` affects construction or callers, keep it defaulted to zero and assign it only when returning a loan.
+- Represent all fine amounts as integers; do not use floating-point values for rupees.
 - Roll back the localized changes in `library.py`, `tests/test_library.py`, and `docs/agent-log/issue-1.md` if they cause regressions.
 
 ## Out of scope
