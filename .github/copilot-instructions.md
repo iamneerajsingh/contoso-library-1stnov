@@ -16,3 +16,10 @@
 - Do not modify anything under .github/ unless the issue explicitly asks for it.
 - Before finishing, run lint and tests and paste the results into the PR description.
 - Record progress and decisions in docs/agent-log/issue-<number>.md.
+
+## Memory and state rules
+- The source of truth for a task is: the issue, the approved plan, and docs/agent-log/issue-<number>.md.
+- At the start of every session, read the plan and the agent log before doing anything else.
+- Never contradict a row in the Decisions table. If a decision must change, add a new row that supersedes it and explain why.
+- Keep the log short: summarise completed steps in one line each; move anything older than the current task to docs/agent-log/archive/.
+- Logs for closed issues are archived when the issue closes; do not reuse them for new tasks.

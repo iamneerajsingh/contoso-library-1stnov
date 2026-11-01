@@ -26,3 +26,10 @@ For the issue you are given:
    ## Open questions for the human reviewer
 4. The last line of the file must be: Status: AWAITING APPROVAL
 If anything in the issue is ambiguous, list it under Open questions instead of guessing.
+
+handoffs:
+  - label: Start implementation
+    agent: implementer
+    prompt: Implement the approved plan above, step by step.
+    send: false
+ 
