@@ -32,4 +32,4 @@ Calculate overdue fines when a book is returned: 10 integer rupees per late day 
 ## Open questions for the human reviewer
 - Should the computed fine be exposed as a field on the returned `Loan`, as assumed here, or should the return operation expose it another way?
 
-Status: AWAITING APPROVAL
+Status: APPROVED
